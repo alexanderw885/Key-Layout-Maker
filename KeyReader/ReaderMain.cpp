@@ -10,10 +10,10 @@ KBDLLHOOKSTRUCT kbdstruct;
 bool close;
 long presses[30][31];
 //0-25 == a-z
-//26   == ;: = 59
-//27   == '" = 39
-//28   == ,< = 44
-//39   == .> = 46
+//26   == ;:
+//27   == '"
+//28   == ,<
+//39   == .>
 //-1   == other/none
 int currChar = -1;
 int prevChar = -1;
