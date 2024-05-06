@@ -55,4 +55,13 @@ public class Keyboard {
                 break;
         }
     }
+    
+    public Key[] getHomeRow(){
+        return board[1];
+    }
+    
+    @Override
+    public String toString(){
+        return "TODO: MAKE KEYBOARD TOSTRING FUNCTION!!!!!";
+    }
 }
