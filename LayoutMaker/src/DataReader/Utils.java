@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Classes;
+package DataReader;
 
 /**
  *
@@ -10,7 +10,7 @@ package Classes;
  */
 public class Utils {
     
-         protected static int ChartoInt(char c){
+    protected static int ChartoInt(char c){
         int val = (char) c;
         
         if(val>=97 && val<=122){
@@ -49,5 +49,17 @@ public class Utils {
         return '?';
          
      }
+     
+    /**
+    * Reverses order of array
+    * @param array array to be reversed
+    */
+    public static void Reverse(Comparable[] array){
+        for(int i=0; i<array.length/2; i++){
+            Comparable temp = array[i];
+            array[i] = array[array.length-i-1];
+            array[array.length-i-1] = temp;
+        }
+    }
     
 }

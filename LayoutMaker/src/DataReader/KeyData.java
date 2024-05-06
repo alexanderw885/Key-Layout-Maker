@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Classes;
+package DataReader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,8 +10,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 /**
- *
- * @author Windows
+ * Class that stores all keys and pairs, and provides them to the caller either
+ * individually or in sorted lists.
+ * @author Alex
  */
 public class KeyData {
     int[][] raw;
@@ -54,16 +55,20 @@ public class KeyData {
         }
         
         Arrays.sort(out);
-        Reverse(out);
+        Utils.Reverse(out);
         
         return out;
     }
     
+    /**
+     * Creates an array of Pairs sorted by how often they occur, most to least
+     * @return sorted array of Pairs
+     */
     public Pair[] MostPairs(){
         Pair[] out = new Pair[30*30];
         
         for(int i=0; i<30; i++){
-            Pair[] oneLett =  keys[i].GetFPairs();
+            Pair[] oneLett =  keys[i].getFPairs();
             
             for(int j=0; j<30; j++){
                 out[(30*i)+j] = oneLett[j];
@@ -71,22 +76,22 @@ public class KeyData {
         }
         
         Arrays.sort(out);
-        Reverse(out);
+        Utils.Reverse(out);
         
         return out;
     }
     
     /**
-     * Reverses order of array
-     * @param array array to be reversed
+     * Returns Pair object for specified chars in order f-l
+     * @param f first char in pair
+     * @param l last char in pair
+     * @return f-l Pair
      */
-    private void Reverse(Comparable[] array){
-        for(int i=0; i<array.length/2; i++){
-            Comparable temp = array[i];
-            array[i] = array[array.length-i-1];
-            array[array.length-i-1] = temp;
-        }
+    public Pair getPair(char f, char l){
+        return keys[Utils.ChartoInt(f)].getFPair(l);
     }
+    
+
 
     /**
      * Handles all the file reading for constructor

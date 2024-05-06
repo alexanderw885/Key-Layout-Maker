@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Classes;
+package DataReader;
 
 import java.util.StringTokenizer;
 
 /**
- *
- * @author Windows
+ * Stores key presses for each key, along with all character pairs containing that key
+ * @author Alex
  */
 public class Key implements Comparable<Key>{
     
@@ -41,22 +41,62 @@ public class Key implements Comparable<Key>{
         MakeLPairs(origin, index);
     }
     
-    public char GetName(){
+    /**
+     * 
+     * @return name of key
+     */
+    public char getName(){
         return name;
     }
     
-    public int GetPresses(){
+    /**
+     * 
+     * @return number of times key has been pressed
+     */
+    public int getPresses(){
         return presses;
     }
     
-    public Pair[] GetFPairs(){
+    /**
+     * Returns specified pair starting with this key, ending with char c
+     * @param c last character in the pair
+     * @return this-c pair
+     */
+    public Pair getFPair(char c){
+        return fpairs[Utils.ChartoInt(c)];
+    }
+    
+    /**
+     * Returns specified pair starting with this c, ending with this key
+     * @param c first character in the pair
+     * @return c-this pair
+     */
+    public Pair getLPair(char c){
+        return fpairs[Utils.ChartoInt(c)];
+    }
+    
+    /**
+     * Returns all pairs starting with this key, sorted alphabetically
+     * @return 
+     */
+    public Pair[] getFPairs(){
         return fpairs;
     }
     
-    public Pair[] GetLPairs(){
+    /**
+     * Returns all pair ending with this key, sorted alphabetically
+     * @return 
+     */
+    public Pair[] getLPairs(){
         return lpairs;
     }
 
+    /**
+     * Called when Key is constructed, creates list of all pairs starting with this key
+     * in alphabetical order
+     * @param origin 30x31 integer array taken from data.txt
+     * @param index index of last char in pair in the array
+     */
     private void MakeFPairs(int[][] origin, int index){
         fpairs = new Pair[30];
         
@@ -67,6 +107,12 @@ public class Key implements Comparable<Key>{
         return;
     }
     
+    /**
+     * Called when Key is constructed, creates list of all pairs ending with this key
+     * in alphabetical order
+     * @param origin 30x31 integer array taken from data.txt
+     * @param index index of first char in pair in the array
+     */
     private void MakeLPairs(int[][] origin, int index){
         lpairs = new Pair[30];
         

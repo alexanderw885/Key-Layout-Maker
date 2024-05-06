@@ -83,7 +83,7 @@ static void LoadData() {
 static void ProcessChar(int c) {
     if (c == 0) return; // Program does not account for modifier keys
     prevChar = currChar;
-    currChar = -1; // Stays as 31 unless relevant key is pressed
+    currChar = -1; // Stays as -1 unless relevant key is pressed
     // Switch case to account for punctuation
     switch (c) {
     case 59:
@@ -112,7 +112,7 @@ static void ProcessChar(int c) {
         presses[currChar][30]++;
         if (debug) { cout << currChar << " " << 30 << endl; }
     }
-    // saves data when space is pressed
+    // saves data when space or enter is pressed
     if (c == -65 || c == -84) {
         if (debug) cout << "save\n";
         SaveData();
