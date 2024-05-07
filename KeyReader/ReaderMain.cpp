@@ -9,6 +9,7 @@ using namespace std;
 
 // Config variables
 const bool debug = FALSE;
+const bool save = TRUE;
 string savePath = "data.txt";
 
 HHOOK hook;
@@ -16,16 +17,20 @@ KBDLLHOOKSTRUCT kbdstruct;
 bool close;
 long presses[30][31];
 //0-25 == a-z
-//26   == ;: = 59
-//27   == '" = 39
-//28   == ,< = 44
-//39   == .> = 46
+//26   == ;:
+//27   == '"
+//28   == ,<
+//29   == .>
 //-1   == other/none
 int currChar = -1;
 int prevChar = -1;
 
 
 static void SaveData() {
+    if (!save) {
+        return;
+    }
+
     string save = "";
     for (int i = 0; i < 30; i++) {
         for (int j = 0; j < 31; j++) {
@@ -78,7 +83,7 @@ static void LoadData() {
 static void ProcessChar(int c) {
     if (c == 0) return; // Program does not account for modifier keys
     prevChar = currChar;
-    currChar = -1; // Stays as 31 unless relevant key is pressed
+    currChar = -1; // Stays as -1 unless relevant key is pressed
     // Switch case to account for punctuation
     switch (c) {
     case 59:
@@ -107,8 +112,9 @@ static void ProcessChar(int c) {
         presses[currChar][30]++;
         if (debug) { cout << currChar << " " << 30 << endl; }
     }
-    // saves data when space is pressed
-    if (c == -65) {
+    // saves data when space or enter is pressed
+    if (c == -65 || c == -84) {
+        if (debug) cout << "save\n";
         SaveData();
     }
 
