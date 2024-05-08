@@ -42,6 +42,14 @@ public class Key implements Comparable<Key>{
     }
     
     /**
+     * Used for making blank keys
+     */
+    Key(){
+        name = '-';
+        presses = 0;
+    }
+    
+    /**
      * 
      * @return name of key
      */

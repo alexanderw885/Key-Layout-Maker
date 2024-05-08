@@ -13,13 +13,23 @@ import DataReader.*;
 public class Homerow {
     
     public static void MakeHomerow(KeyData data, Keyboard board){
+        
+        // State is used to track the state of each key in key array
+        //0 means side undetermined
+        // +-1 means left/right side, undetermined place
+        //+-2 means left/right side, in place
+        int[] state = new int[10];
+        
         Key[] key = data.MostPressed();
         // Keys 0-9 are most pressed, so they are top candidates for home row
         // Most pressed keys go on middle finger, I arbitrarily chose most pressed on left
         Key[] home = board.getHomeRow();
-        home[2] = key[0];
-        home[7] = key[1];
         
+        //State should always be updated when keys are placed into the home row
+        home[2] = key[0];
+        state[0] = -2;
+        home[7] = key[1];
+        state[1] = 2;
         SideRollover(key, home);
         BalanceHands(key, home);
         BalanceFingers(key, home);
@@ -34,7 +44,13 @@ public class Homerow {
      * @param home 
      */
     private static void SideRollover(Key[] key, Key[] home){
-         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody       
+        Key leftM = home[2];
+        Key rightM = home[7];
+        
+        for(int i=2; i<10; i++){
+            
+        }
+        
     }
 
     /**
