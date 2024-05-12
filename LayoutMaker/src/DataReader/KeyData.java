@@ -117,6 +117,15 @@ public class KeyData {
         } 
     }
     
+    public String KeyString(){
+        String out ="";
+        for(int i=0; i<keys.length; i++){
+            out +=keys[i].toString();
+        }
+        out +="\n";
+        return out;
+    }
+    
     @Override
     public String toString(){
         String out = "";

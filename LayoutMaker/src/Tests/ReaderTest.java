@@ -14,7 +14,7 @@ import DataReader.Pair;
 public class ReaderTest {
     public static void run(KeyData data){
         
-        System.out.println("\nDATA!!!");
+        /*System.out.println("\nDATA!!!");
         System.out.println(data.toString()+"\n");
         
         System.out.println("\nKEY!!!");        
@@ -35,6 +35,19 @@ public class ReaderTest {
         Pair[] pairOrder = data.MostPairs();
         for(int i=0; i<pairOrder.length; i++){
             System.out.printf(pairOrder[i].toString()+"\n");
+        }
+        
+        System.out.println("\nALL KEYS!!!");
+        System.out.println(data.KeyString());*/
+        
+        Key h = data.getKey('h');
+        Key t = data.getKey('t');
+        System.out.println(h.getLPair('t').toString());
+        System.out.println(t.getFPair('h').toString());
+        
+        Pair[] hlp = h.getLPairs();
+        for(int i=0; i<hlp.length; i++){
+            System.out.println(hlp[i].toString());
         }
 
     }

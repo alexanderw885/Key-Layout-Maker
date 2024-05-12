@@ -4,6 +4,8 @@
  */
 package DataReader;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.StringTokenizer;
 
 /**
@@ -15,9 +17,11 @@ public class Key implements Comparable<Key>{
     private char name;
     private int presses;
     private Pair[] fpairs;
+    private int fpair10;
     private Pair[] lpairs;
+    private int lpair10;
     
-    Key(int[][] origin, char c){
+    public Key(int[][] origin, char c){
         int index =Utils.ChartoInt(c);
         if(index==-1){
             System.out.println("invalid character:"+c);
@@ -29,7 +33,7 @@ public class Key implements Comparable<Key>{
         MakeLPairs(origin, index);
     }
     
-    Key(int[][] origin, int index){
+    public Key(int[][] origin, int index){
         char c = Utils.InttoChar(index);
         if(index==-1){
             System.out.println("invalid character:"+c);
@@ -44,9 +48,11 @@ public class Key implements Comparable<Key>{
     /**
      * Used for making blank keys
      */
-    Key(){
+    public Key(){
         name = '-';
         presses = 0;
+        fpair10 = 0;
+        lpair10 = 0;
     }
     
     /**
@@ -75,12 +81,28 @@ public class Key implements Comparable<Key>{
     }
     
     /**
+     * Returns the sum of all fpair frequencies
+     * @return 
+     */
+    public int getFPair10(){
+        return fpair10;
+    }
+    
+    /**
      * Returns specified pair starting with this c, ending with this key
      * @param c first character in the pair
      * @return c-this pair
      */
     public Pair getLPair(char c){
-        return fpairs[Utils.ChartoInt(c)];
+        return lpairs[Utils.ChartoInt(c)];
+    }
+    
+    /**
+     * returns the sum of all lpair frequencies
+     * @return 
+     */
+    public int getLPair10(){
+        return lpair10;
     }
     
     /**
@@ -100,6 +122,15 @@ public class Key implements Comparable<Key>{
     }
 
     /**
+     * returns the sum of both fpair and lpair with the char c
+     * @param c other char in both pairs with this key
+     * @return total pairs
+     */
+    public int PairSum(char c){
+        return this.getLPair(c).freq+this.getFPair(c).freq;
+    }
+
+    /**
      * Called when Key is constructed, creates list of all pairs starting with this key
      * in alphabetical order
      * @param origin 30x31 integer array taken from data.txt
@@ -107,11 +138,18 @@ public class Key implements Comparable<Key>{
      */
     private void MakeFPairs(int[][] origin, int index){
         fpairs = new Pair[30];
+        Pair[] top10 = new Pair[30];
+        fpair10 = 0;
         
         for(int i=0; i<30; i++){
-            fpairs[i] = new Pair(origin[index][i], index, i);
+            fpairs[i] = top10[i] = new Pair(origin[index][i], index, i);
         }
         
+        Arrays.sort(top10);
+        Utils.Reverse(top10);
+        for(int i=0; i<10; i++){
+            fpair10 += top10[i].freq;
+        }
         return;
     }
     
@@ -123,10 +161,18 @@ public class Key implements Comparable<Key>{
      */
     private void MakeLPairs(int[][] origin, int index){
         lpairs = new Pair[30];
+        Pair[] top10 = new Pair[30];
+        lpair10 = 0;
         
         for(int i=0; i<30; i++){
-            lpairs[i] = new Pair(origin[i][index], i, index);
+            lpairs[i] = top10[i] = new Pair(origin[i][index], i, index);
         }
+        Arrays.sort(top10);
+        Utils.Reverse(top10);
+        for(int i=0; i<10; i++){
+            lpair10 += top10[i].freq;
+        }
+        
         
         return;
     }
@@ -134,15 +180,8 @@ public class Key implements Comparable<Key>{
     @Override
     public String toString(){
         String out =String.format("%c: Pressed %d times\n", name, presses);
-        out += "Pairs starting with "+name+":\n";
-        for(int i=0; i<30; i++){
-            out +=fpairs[i].toString()+"\n";
-        }
-        out += "Pairs ending with "+name+":\n";
-        for(int i=0; i<30; i++){
-            out +=lpairs[i].toString()+"\n";
-        }
-        
+        out+=("fpair10: "+ fpair10+"\n");
+        out+=("lpair10: "+lpair10+"\n");
         return out;
     }
 
@@ -154,4 +193,5 @@ public class Key implements Comparable<Key>{
             return Utils.ChartoInt(this.name)- Utils.ChartoInt(o.name);
     }
 
+    
 }

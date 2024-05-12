@@ -10,7 +10,7 @@ package DataReader;
  */
 public class Utils {
     
-    protected static int ChartoInt(char c){
+    public static int ChartoInt(char c){
         int val = (char) c;
         
         if(val>=97 && val<=122){
@@ -30,7 +30,7 @@ public class Utils {
         return -1;
     }
      
-     protected static char InttoChar(int val){
+     public static char InttoChar(int val){
          
          if(val>=0 && val<=25){
            return (char)(val+97); 

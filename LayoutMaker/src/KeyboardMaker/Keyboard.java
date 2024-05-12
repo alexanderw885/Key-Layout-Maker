@@ -32,8 +32,13 @@ public class Keyboard {
 
         switch (layout) {
             case 0:
-                board = new Key[3][30];
+                board = new Key[3][10];
                 type = "Blank";
+                for(int i=0; i<3; i++){
+                    for(int j=0; j<10; j++){
+                        board[i][j] = new Key();
+                    }
+                }
                 break;
             case 1:
                 Key[][] qwert = { // Note that ' got moved to bottom row to make up for no space on middle row. 
@@ -62,6 +67,27 @@ public class Keyboard {
     
     @Override
     public String toString(){
-        return "TODO: MAKE KEYBOARD TOSTRING FUNCTION!!!!!";
+        String out = "";
+        for(int i=0; i<board[0].length; i++){
+            out += (board[0][i].getName()+ "   ");
+            if(i == 4){
+                out += "  ";
+            }
+        }
+        out += "\n ";
+        for(int i=0; i<board[1].length; i++){
+            out += (board[1][i].getName()+ "   ");
+            if(i == 4){
+                out += "  ";
+            }
+        }
+        out += "\n  ";
+        for(int i=0; i<board[2].length; i++){
+            out += (board[2][i].getName()+ "   ");
+            if(i == 4){
+                out += "  ";
+            }
+        }
+        return out;
     }
 }

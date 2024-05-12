@@ -16,7 +16,7 @@ import KeyboardMaker.Maker;
 public class Main {
     public static void main(String[] args){
         KeyData data = new KeyData("data.txt");
-        ReaderTest.run(data);
+        //ReaderTest.run(data);
         Maker make = new Maker(data);
         Keyboard board = make.MakeMain();
         System.out.println(board.toString());

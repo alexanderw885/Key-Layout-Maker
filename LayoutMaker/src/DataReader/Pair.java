@@ -21,6 +21,10 @@ public class Pair implements Comparable<Pair>{
     
     }
     
+    public int getFreq(){
+        return freq;
+    }
+    
     @Override
     public String toString(){
         String out = String.format("%c%c: Pressed %d times", first, last, freq);
